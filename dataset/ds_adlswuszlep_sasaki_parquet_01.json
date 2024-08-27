@@ -1,0 +1,45 @@
+{
+	"name": "ds_adlswuszlep_sasaki_parquet_01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dfs_adlswuszlep",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"fileSystem": {
+				"type": "string"
+			},
+			"path": {
+				"type": "string"
+			},
+			"fileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "sasaki_work"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@dataset().path",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().fileSystem",
+					"type": "Expression"
+				}
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

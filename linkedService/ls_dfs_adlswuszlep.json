@@ -1,0 +1,15 @@
+{
+	"name": "ls_dfs_adlswuszlep",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://adlswuszlep.dfs.core.windows.net/"
+		},
+		"connectVia": {
+			"referenceName": "ir-managed-virtual-network",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

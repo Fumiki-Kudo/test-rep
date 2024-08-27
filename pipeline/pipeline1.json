@@ -1,0 +1,35 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "a",
+					"value": {
+						"value": "@formatDateTime(utcnow(),'yyyy-MM-dd HH:mm:ss')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"a": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "kudo_work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-07-24T05:59:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

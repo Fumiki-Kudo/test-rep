@@ -1,0 +1,10 @@
+{
+	"name": "mpe_dfs_adlswuszlep",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlswuszlep",
+		"groupId": "dfs",
+		"fqdns": [
+			"adlswuszlep.dfs.core.windows.net"
+		]
+	}
+}

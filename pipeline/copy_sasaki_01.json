@@ -1,0 +1,77 @@
+{
+	"name": "copy_sasaki_01",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_adlswuszlep_sasaki_excel_01",
+						"type": "DatasetReference",
+						"parameters": {
+							"path": "source",
+							"fileSystem": "sasaki-work",
+							"fileName": "停止時間リスト.xlsx",
+							"sheetName": "停止時間リスト"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlswuszlep_sasaki_parquet_01",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileSystem": "sasaki-work",
+							"path": "sink",
+							"fileName": "stoplist.parquet"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "pl_sasaki_work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-08-05T09:34:45Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,10 @@
+{
+	"name": "mpe_file_adlsjezlep",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlsjezlep",
+		"groupId": "file",
+		"fqdns": [
+			"adlsjezlep.file.core.windows.net"
+		]
+	}
+}

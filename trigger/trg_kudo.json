@@ -1,0 +1,26 @@
+{
+	"name": "trg_kudo",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-07-26T06:08:00",
+				"endTime": "2024-07-27T06:08:00",
+				"timeZone": "Tokyo Standard Time",
+				"schedule": {
+					"minutes": [
+						30
+					],
+					"hours": [
+						15
+					]
+				}
+			}
+		}
+	}
+}

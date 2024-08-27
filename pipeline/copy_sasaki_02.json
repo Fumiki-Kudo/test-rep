@@ -1,0 +1,73 @@
+{
+	"name": "copy_sasaki_02",
+	"properties": {
+		"description": "Converts data for Unit test.",
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sqlserver_vm_wus_sasaki_work",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "F_HitachiScada_5"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_adlswuszlep_sasaki_parquet_01",
+						"type": "DatasetReference",
+						"parameters": {
+							"fileSystem": "sasaki-work",
+							"path": "Unit-test/F_HitachiScada/5",
+							"fileName": "F_HitachiScada.parquet"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "pl_sasaki_work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-08-23T07:26:36Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

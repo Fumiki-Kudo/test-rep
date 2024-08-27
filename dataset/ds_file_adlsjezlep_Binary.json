@@ -1,0 +1,21 @@
+{
+	"name": "ds_file_adlsjezlep_Binary",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_file_adlsjezlep",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "kudo_work"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureFileStorageLocation",
+				"folderPath": "data"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

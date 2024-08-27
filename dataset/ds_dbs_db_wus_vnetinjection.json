@@ -1,0 +1,34 @@
+{
+	"name": "ds_dbs_db_wus_vnetinjection",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_dbs_db_wus_vnetinjection",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"database_name": {
+				"type": "string"
+			},
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "kudo_work"
+		},
+		"annotations": [],
+		"type": "AzureDatabricksDeltaLakeDataset",
+		"typeProperties": {
+			"database": {
+				"value": "@dataset().database_name",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

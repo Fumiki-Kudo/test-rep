@@ -1,0 +1,13 @@
+{
+	"name": "ls_dbs_db_wus_vnetinjection",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureDatabricksDeltaLake",
+		"typeProperties": {
+			"domain": "https://adb-730482398327737.17.azuredatabricks.net",
+			"clusterId": "0717-010034-pjuthfc",
+			"workspaceResourceId": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Databricks/workspaces/db-wus-vnetinjection"
+		}
+	}
+}

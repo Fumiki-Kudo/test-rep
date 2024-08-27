@@ -1,0 +1,16 @@
+{
+	"name": "ls_sqlserver_vm_wus_sasaki_work",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=\" 40.112.184.49\";initial catalog=sasaki_work;user id=sa",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkNWI2MDg1Zi0yNzc3LTRkNzItYjVkNi1iMGVhNzcxMGZkYmEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "ir-SFP6-003",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
