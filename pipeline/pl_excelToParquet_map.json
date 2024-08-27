@@ -1,0 +1,79 @@
+{
+	"name": "pl_excelToParquet_map",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ExcelSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"value": "@json(variables('map'))",
+						"type": "Expression"
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_dfs_adlswuszlep_excel",
+						"type": "DatasetReference",
+						"parameters": {
+							"path": "test_data",
+							"fileSystem": "source",
+							"fileName": "Product.xlsx",
+							"sheetName": "Sheet1"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_dfs_adlswuszlep_Parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"path": "maptest",
+							"fileSystem": "source",
+							"fileName": "Product.parquet"
+						}
+					}
+				]
+			}
+		],
+		"variables": {
+			"map": {
+				"type": "String",
+				"defaultValue": "{     \"type\": \"TabularTranslator\",     \"mappings\": [         {             \"source\": {                 \"name\": \"商品ID\"             },             \"sink\": {                 \"name\": \"ProductID\"             }         },         {             \"source\": {                 \"name\": \"商品名\"             },             \"sink\": {                 \"name\": \"Name\"             }         },         {             \"source\": {                 \"name\": \"商品No\"             },             \"sink\": {                 \"name\": \"ProductNumber\"             }         },         {             \"source\": {                 \"name\": \"カラー\"             },             \"sink\": {                 \"name\": \"Color\"             }         },         {             \"source\": {                 \"name\": \"標準原価\"             },             \"sink\": {                 \"name\": \"StandardCost\"             }         },         {             \"source\": {                 \"name\": \"表示価格\"             },             \"sink\": {                 \"name\": \"ListPrice\"             }         },         {             \"source\": {                 \"name\": \"サイズ\"             },             \"sink\": {                 \"name\": \"Size\"             }         },         {             \"source\": {                 \"name\": \"重量\"             },             \"sink\": {                 \"name\": \"Weight\"             }         },         {             \"source\": {                 \"name\": \"商品カテゴリーID\"             },             \"sink\": {                 \"name\": \"ProductCategoryID\"             }         },         {             \"source\": {                 \"name\": \"商品モデルID\"             },             \"sink\": {                 \"name\": \"ProductModelID\"             }         },         {             \"source\": {                 \"name\": \"販売開始日\"             },             \"sink\": {                 \"name\": \"SellStartDate\"             }         },         {             \"source\": {                 \"name\": \"販売終了日\"             },             \"sink\": {                 \"name\": \"SellEndDate\"             }         },         {             \"source\": {                 \"name\": \"値下げ日\"             },             \"sink\": {                 \"name\": \"DiscontinuedDate\"             }         },         {             \"source\": {                 \"name\": \"商品画像\"             },             \"sink\": {                 \"name\": \"ThumbNailPhoto\"             }         },         {             \"source\": {                 \"name\": \"商品画像名\"             },             \"sink\": {                 \"name\": \"ThumbnailPhotoFileName\"             }         },         {             \"source\": {                 \"name\": \"rowguid\"             },             \"sink\": {                 \"name\": \"rowguid\"             }         },         {             \"source\": {                 \"name\": \"最終更新日\"             },             \"sink\": {                 \"name\": \"ModifiedDate\"             }         }     ],     \"typeConversion\": true }"
+			}
+		},
+		"folder": {
+			"name": "kudo_work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-08-01T05:56:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

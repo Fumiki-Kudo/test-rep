@@ -1,0 +1,33 @@
+{
+	"name": "pl_call_databricks",
+	"properties": {
+		"activities": [
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/kudo_databricks_pipelines/databricks_pipelines/src/pipelines/alarm_private/030_SilverToGold/salesorderdetail"
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_bricks_db_wus_vnetinjection",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"folder": {
+			"name": "kudo_work"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-07-23T01:53:14Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

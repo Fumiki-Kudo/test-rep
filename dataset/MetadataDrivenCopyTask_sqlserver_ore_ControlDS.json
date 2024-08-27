@@ -1,0 +1,20 @@
+{
+	"name": "MetadataDrivenCopyTask_sqlserver_ore_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqlserver_vm_wus_test_test",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "MetadataDrivenCopyTask_sqlserver_ore_20240726"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "MainControlTable_kudo"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

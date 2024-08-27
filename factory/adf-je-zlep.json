@@ -1,0 +1,9 @@
+{
+	"name": "adf-je-zlep",
+	"location": "japaneast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b246490b-066a-4a61-8094-a4e93ac02b75",
+		"tenantId": "e76d26a9-f74b-44c0-beb3-c811e4fcc2f8"
+	}
+}

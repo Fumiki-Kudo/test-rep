@@ -1,0 +1,119 @@
+{
+	"name": "pl_alarm_job",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute MetadataDrivenCopyTask_sqlserver",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set SystemTimestamp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_sqlserver_ore_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"SystemTimestamp": {
+							"value": "@variables('SystemTimestamp')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Execute MetadataDrivenCopyTask_azure_files_binary",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Set SystemTimestamp",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_azure_files_binary_7er_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"SystemTimestamp": {
+							"value": "@variables('SystemTimestamp')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Execute MetadataDrivenCopyTask_azure_files_excel",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute MetadataDrivenCopyTask_azure_files_binary",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_azure_files_excel_parquet_9s3_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"SystemTimestamp": {
+							"value": "@variables('SystemTimestamp')",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Set SystemTimestamp",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "SystemTimestamp",
+					"value": {
+						"value": "@formatDateTime(utcnow(),'yyyy-MM-dd HH:mm:ss')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"SystemTimestamp": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-07-26T06:17:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
