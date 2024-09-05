@@ -3,28 +3,15 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Set variable1",
-				"type": "SetVariable",
+				"name": "Wait1",
+				"type": "Wait",
 				"dependsOn": [],
-				"policy": {
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"variableName": "a",
-					"value": {
-						"value": "@formatDateTime(utcnow(),'yyyy-MM-dd HH:mm:ss')",
-						"type": "Expression"
-					}
+					"waitTimeInSeconds": 1
 				}
 			}
 		],
-		"variables": {
-			"a": {
-				"type": "String"
-			}
-		},
 		"folder": {
 			"name": "kudo_work"
 		},
