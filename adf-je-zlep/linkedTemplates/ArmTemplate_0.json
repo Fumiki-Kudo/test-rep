@@ -1,0 +1,515 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "データ ファクトリ名",
+			"defaultValue": "adf-je-zlep"
+		},
+		"ls_sqlserver_vm_wus_sasaki_work_connectionString": {
+			"type": "secureString",
+			"metadata": "'ls_sqlserver_vm_wus_sasaki_work' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"ls_sqlserver_vm_wus_test_test_connectionString": {
+			"type": "secureString",
+			"metadata": "'ls_sqlserver_vm_wus_test_test' の 'connectionString' のセキュリティで保護された文字列"
+		},
+		"ls_bricks_db_wus_vnetinjection_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0717-010034-pjuthfc"
+		},
+		"AzureDatabricks671_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Databricks/workspaces/cszl-uc-dbw-01-dev"
+		},
+		"AzureDatabricks671_properties_groupId": {
+			"type": "string",
+			"defaultValue": "databricks_ui_api"
+		},
+		"mpe_dfs_adlsjezlep_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlsjezlep"
+		},
+		"mpe_dfs_adlsjezlep_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dfs"
+		},
+		"mpe_dfs_adlsjezlep_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"adlsjezlep.dfs.core.windows.net"
+			]
+		},
+		"mpe_dfs_adlswuszlep_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlswuszlep"
+		},
+		"mpe_dfs_adlswuszlep_properties_groupId": {
+			"type": "string",
+			"defaultValue": "dfs"
+		},
+		"mpe_dfs_adlswuszlep_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"adlswuszlep.dfs.core.windows.net"
+			]
+		},
+		"mpe_file_adlsjezlep_properties_privateLinkResourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlsjezlep"
+		},
+		"mpe_file_adlsjezlep_properties_groupId": {
+			"type": "string",
+			"defaultValue": "file"
+		},
+		"mpe_file_adlsjezlep_properties_fqdns": {
+			"type": "array",
+			"defaultValue": [
+				"adlsjezlep.file.core.windows.net"
+			]
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 2
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "kudo_work"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-07-24T05:59:59Z"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_bricks_db_wus_vnetinjection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-730482398327737.17.azuredatabricks.net",
+					"authentication": "MSI",
+					"workspaceResourceId": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Databricks/workspaces/db-wus-vnetinjection",
+					"existingClusterId": "[parameters('ls_bricks_db_wus_vnetinjection_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_dbs_db_wus_vnetinjection')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLake",
+				"typeProperties": {
+					"domain": "https://adb-730482398327737.17.azuredatabricks.net",
+					"clusterId": "0717-010034-pjuthfc",
+					"workspaceResourceId": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Databricks/workspaces/db-wus-vnetinjection"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/trg_kudo')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-07-26T06:08:00",
+						"endTime": "2024-07-27T06:08:00",
+						"timeZone": "Tokyo Standard Time",
+						"schedule": {
+							"minutes": [
+								30
+							],
+							"hours": [
+								15
+							]
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ir-SFP6-003')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks",
+			"apiVersion": "2018-06-01",
+			"properties": {},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_call_databricks')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Notebook1",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Repos/kudo_databricks_pipelines/databricks_pipelines/src/pipelines/alarm_private/030_SilverToGold/salesorderdetail"
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_bricks_db_wus_vnetinjection",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"folder": {
+					"name": "kudo_work"
+				},
+				"annotations": [],
+				"lastPublishTime": "2024-07-23T01:53:14Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_bricks_db_wus_vnetinjection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_dbs_db_wus_vnetinjection')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_dbs_db_wus_vnetinjection",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"database_name": {
+						"type": "string"
+					},
+					"table_name": {
+						"type": "string"
+					}
+				},
+				"folder": {
+					"name": "kudo_work"
+				},
+				"annotations": [],
+				"type": "AzureDatabricksDeltaLakeDataset",
+				"typeProperties": {
+					"database": {
+						"value": "@dataset().database_name",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().table_name",
+						"type": "Expression"
+					}
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_dbs_db_wus_vnetinjection')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_sqlserver_vm_wus_sasaki_work')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_sqlserver_vm_wus_sasaki_work_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-SFP6-003",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ir-SFP6-003')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ls_sqlserver_vm_wus_test_test')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('ls_sqlserver_vm_wus_test_test_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "ir-SFP6-003",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/ir-SFP6-003')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ir-managed-virtual-network')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "Japan East",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 10,
+							"cleanup": false,
+							"customProperties": []
+						},
+						"pipelineExternalComputeScaleProperties": {
+							"timeToLive": 60,
+							"numberOfPipelineNodes": 1,
+							"numberOfExternalNodes": 1
+						}
+					}
+				},
+				"managedVirtualNetwork": {
+					"type": "ManagedVirtualNetworkReference",
+					"referenceName": "default"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/AzureDatabricks671')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('AzureDatabricks671_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('AzureDatabricks671_properties_groupId')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/mpe_dfs_adlsjezlep')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('mpe_dfs_adlsjezlep_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('mpe_dfs_adlsjezlep_properties_groupId')]",
+				"fqdns": "[parameters('mpe_dfs_adlsjezlep_properties_fqdns')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/mpe_dfs_adlswuszlep')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('mpe_dfs_adlswuszlep_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('mpe_dfs_adlswuszlep_properties_groupId')]",
+				"fqdns": "[parameters('mpe_dfs_adlswuszlep_properties_fqdns')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/default/mpe_file_adlsjezlep')]",
+			"type": "Microsoft.DataFactory/factories/managedVirtualNetworks/managedPrivateEndpoints",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"privateLinkResourceId": "[parameters('mpe_file_adlsjezlep_properties_privateLinkResourceId')]",
+				"groupId": "[parameters('mpe_file_adlsjezlep_properties_groupId')]",
+				"fqdns": "[parameters('mpe_file_adlsjezlep_properties_fqdns')]"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/managedVirtualNetworks/default')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetadataDrivenCopyTask_azure_files_ControlDS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_vm_wus_test_test",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "MetadataDrivenCopyTask_azure_files_excel_parquet"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "MainControlTable_kudo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_vm_wus_test_test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetadataDrivenCopyTask_azure_files_binary_7er_ControlDS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_vm_wus_test_test",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "MetadataDrivenCopyTask_azure_files_binary_7er_20240726"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "MainControlTable_kudo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_vm_wus_test_test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetadataDrivenCopyTask_azure_files_excel_parquet_9s3_ControlDS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_vm_wus_test_test",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "MetadataDrivenCopyTask_azure_files_excel_parquet_9s3_20240726"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "MainControlTable_kudo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_vm_wus_test_test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetadataDrivenCopyTask_sqlserver_ore_ControlDS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_vm_wus_test_test",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "MetadataDrivenCopyTask_sqlserver_ore_20240726"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "MainControlTable_kudo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_vm_wus_test_test')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MetadataDrivenCopyTask_sqlserver_ore_SourceDS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sqlserver_vm_wus_test_test",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"cw_schema": {
+						"type": "String"
+					},
+					"cw_table": {
+						"type": "String"
+					}
+				},
+				"folder": {
+					"name": "MetadataDrivenCopyTask_sqlserver_ore_20240726"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().cw_schema",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().cw_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sqlserver_vm_wus_test_test')]"
+			]
+		}
+	]
+}

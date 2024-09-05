@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-je-zlep"
+		},
+		"ls_sqlserver_vm_wus_sasaki_work_connectionString": {
+			"value": ""
+		},
+		"ls_sqlserver_vm_wus_test_test_connectionString": {
+			"value": ""
+		},
+		"ls_bricks_db_wus_vnetinjection_properties_typeProperties_existingClusterId": {
+			"value": "0717-010034-pjuthfc"
+		},
+		"ls_dfs_adlsjezlep_properties_typeProperties_url": {
+			"value": "https://adlsjezlep.dfs.core.windows.net/"
+		},
+		"ls_dfs_adlswuszlep_properties_typeProperties_url": {
+			"value": "https://adlswuszlep.dfs.core.windows.net/"
+		},
+		"ls_file_adlsjezlep_sasUri": {
+			"value": ""
+		},
+		"AzureDatabricks671_properties_privateLinkResourceId": {
+			"value": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Databricks/workspaces/cszl-uc-dbw-01-dev"
+		},
+		"AzureDatabricks671_properties_groupId": {
+			"value": "databricks_ui_api"
+		},
+		"mpe_dfs_adlsjezlep_properties_privateLinkResourceId": {
+			"value": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlsjezlep"
+		},
+		"mpe_dfs_adlsjezlep_properties_groupId": {
+			"value": "dfs"
+		},
+		"mpe_dfs_adlsjezlep_properties_fqdns": {
+			"value": [
+				"adlsjezlep.dfs.core.windows.net"
+			]
+		},
+		"mpe_dfs_adlswuszlep_properties_privateLinkResourceId": {
+			"value": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlswuszlep"
+		},
+		"mpe_dfs_adlswuszlep_properties_groupId": {
+			"value": "dfs"
+		},
+		"mpe_dfs_adlswuszlep_properties_fqdns": {
+			"value": [
+				"adlswuszlep.dfs.core.windows.net"
+			]
+		},
+		"mpe_file_adlsjezlep_properties_privateLinkResourceId": {
+			"value": "/subscriptions/8d78b926-62f3-4fef-8c0f-3c75ade812c8/resourceGroups/BAP-COSMO-DataCatalog/providers/Microsoft.Storage/storageAccounts/adlsjezlep"
+		},
+		"mpe_file_adlsjezlep_properties_groupId": {
+			"value": "file"
+		},
+		"mpe_file_adlsjezlep_properties_fqdns": {
+			"value": [
+				"adlsjezlep.file.core.windows.net"
+			]
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
