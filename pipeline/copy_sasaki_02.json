@@ -46,7 +46,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"schema_name": "dbo",
-							"table_name": "F_HitachiScada_5"
+							"table_name": "F_HitachiScada_4"
 						}
 					}
 				],
@@ -56,7 +56,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"fileSystem": "sasaki-work",
-							"path": "Unit-test/F_HitachiScada/5",
+							"path": "Unit-test/F_HitachiScada/4",
 							"fileName": "F_HitachiScada.parquet"
 						}
 					}
@@ -67,7 +67,7 @@
 			"name": "pl_sasaki_work"
 		},
 		"annotations": [],
-		"lastPublishTime": "2024-08-23T07:26:36Z"
+		"lastPublishTime": "2024-08-28T10:18:45Z"
 	},
 	"type": "Microsoft.DataFactory/factories/pipelines"
 }
